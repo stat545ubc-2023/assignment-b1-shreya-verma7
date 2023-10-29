@@ -39,7 +39,7 @@ tags.
 
 options(dplyr.summarise.inform = FALSE) # Suppressing default message using global option
 
-summarize_by_group_mean = function(dataFrame, group_by){
+Group_mean_summarization = function(dataFrame, group_by){
     if (! (is.vector(group_by) && length(group_by) > 0)){
       stop('Group by column parameter is invalid')
     }
@@ -96,7 +96,7 @@ head(penguins)
 
 ``` r
 # Function output when grouped on the column 'island'
-summarize_by_group_mean(penguins, "island")
+Group_mean_summarization(penguins, "island")
 ```
 
     ## # A tibble: 3 × 6
@@ -110,7 +110,7 @@ summarize_by_group_mean(penguins, "island")
 
 ``` r
 # Function output when grouped on the columns 'species' and 'island'
-summarize_by_group_mean(penguins, c("species", "island"))
+Group_mean_summarization(penguins, c("species", "island"))
 ```
 
     ## # A tibble: 5 × 7
@@ -128,7 +128,7 @@ summarize_by_group_mean(penguins, c("species", "island"))
 
 ``` r
 # Function output when grouped on the columns 1 and 2 that correspond to 'species' and 'island'
-summarize_by_group_mean(penguins, c(1,2))
+Group_mean_summarization(penguins, c(1,2))
 ```
 
     ## # A tibble: 5 × 7
@@ -156,48 +156,48 @@ to 5: expect_equivalent) outcomes.
 
 ``` r
 test_that("Invalid data type error", {
-    expect_error(summarize_by_group_mean(list(1,2),c(1)))
+    expect_error(Group_mean_summarization(list(1,2),c(1)))
     })
 ```
 
-    ## Test passed 🥳
+    ## Test passed 🎉
 
 ###### Test 2: Checking for valid argument range
 
 ``` r
 test_that("Invalid group by index error", {
-    expect_error(summarize_by_group_mean(tibble(1,2),c(0)))
+    expect_error(Group_mean_summarization(tibble(1,2),c(0)))
     })
 ```
 
-    ## Test passed 🥳
+    ## Test passed 🎉
 
 ###### Test 3: Checking for non-empty arguments
 
 ``` r
 test_that("Empty group by index error", {
-    expect_error(summarize_by_group_mean(tibble(1,2),c()))
+    expect_error(Group_mean_summarization(tibble(1,2),c()))
     })
 ```
 
-    ## Test passed 😀
+    ## Test passed 🥳
 
 ###### Test 4: Checking for computational correctness
 
 ``` r
 test_that("Expect the mean to equal 3 for all data vales = 3 grouped by first index", {
-    expect_equivalent(summarize_by_group_mean(tibble(c(1,1),3),c(1)),tibble(c(1),c(3)))
+    expect_equivalent(Group_mean_summarization(tibble(c(1,1),3),c(1)),tibble(c(1),c(3)))
     })
 ```
 
-    ## Test passed 🌈
+    ## Test passed 🥇
 
 ###### Test 5: Checking for proper handling of N/A values
 
 ``` r
 test_that("Test mean removes NA values in summarized column ", {
-    expect_equivalent(summarize_by_group_mean(tibble(c(1,1,2),c(3,NA,5)),c(1)),tibble(c(1,2),c(3,5)))
+    expect_equivalent(Group_mean_summarization(tibble(c(1,1,2),c(3,NA,5)),c(1)),tibble(c(1,2),c(3,5)))
     })
 ```
 
-    ## Test passed 🎉
+    ## Test passed 😸
